@@ -10,6 +10,8 @@ const spanLives = d.querySelector('#lives');
 const spanTime = d.querySelector('#time');
 const spanRecord = d.querySelector('#record');
 const pResult = d.querySelector('#result');
+const reset_button = document.querySelector('#reset_button');
+
 
 window.addEventListener('load', setCanvasSize); /* Acá decimos que se ejecute la función de startGame cuando termine de cargar la página */
 window.addEventListener('resize', setCanvasSize);
@@ -26,6 +28,12 @@ let timeStart;
 let timePlayer;
 let timeInterval;
 
+
+reset_button.addEventListener('click', resetGame);
+
+function resetGame() {
+    location.reload();
+}
 
 const playerPosition = {
     x: undefined,
@@ -185,7 +193,7 @@ function gameWin() {
             localStorage.setItem('record_time', playerTime);
             pResult.innerHTML = 'SUPERASTE EL RECORDDD';
         } else {
-            pResult.innerHTML = 'No superaste el record, imbecil';
+            pResult.innerHTML = 'No superaste el record, volvé a intentarlo';
         }
     } else {
         localStorage.setItem('record_time', playerTime);
@@ -260,3 +268,23 @@ function moveDown() {
         startGame();
     }
 };
+
+
+
+function gameOverEvent(){
+    if(vidas && mapa[posJugador] == 'X'){ 
+        explociones.push(posJugador);
+        --vidas;
+        juego.fillText(emojis['BOMB_COLLISION'],posX(posJugador),posY(posJugador));
+        posJugador = puntoDePartida;}
+    if(gameFinishEvent()) {
+        explociones = Array();
+        return true;} /*juego terminado*/
+    return false; /*continuar con el juego*/}
+
+
+function paintEventExplosion(){
+    if(!explociones.length) return;
+    explociones.forEach((pos) =>{
+        clearRect(pos);
+        juego.fillText(emojis['BOMB_COLLISION'],posX(pos),posY(pos));});}
