@@ -52,7 +52,7 @@ function setCanvasSize() {
         canvasSize = window.innerHeight * 0.7;
     }
 
-    canvasSize = canvasSize.toFixed(0);
+    /* canvasSize = canvasSize.toFixed(0); */
     
     /* y EN LAS 2 SIGUIENTES LÍNEAS le decimos a canvas que modifique sus atributos de ancho y largo por el resultado de la variable canvasSize */
     canvas.setAttribute('width', canvasSize);
